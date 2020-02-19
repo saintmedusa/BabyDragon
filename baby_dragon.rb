@@ -1,6 +1,6 @@
 class BabyDragon
 
-  attr_reader :fullness_level
+  attr_reader :fullness_level, :quenched_level
 
   def initialize(name)
     @name = name
@@ -8,6 +8,17 @@ class BabyDragon
     # The dragon is not hungry when @fullness_level is 10
     # The dragon is very hungry when @fullness_level is 0
     @fullness_level = 10
+
+    @is_thirsty = false 
+    @quenched_level = 10
+  end
+
+  def drink 
+    puts "#{@name} laps water from a stone fountain." 
+
+    @quenched_level = 10
+
+    passage_of_time
   end
 
   def eat
@@ -28,24 +39,36 @@ class BabyDragon
     puts "#{@name} curls up and dozes off..."
     
     @is_asleep = true
+    @is_thirsty = true
 
     3.times do
       passage_of_time
     end
 
     @is_asleep = false
+    @is_thirsty = false
   end
 
   def passage_of_time
     if (@fullness_level > 0)
       @fullness_level -= 1
     else
-      if (@is_asleep)
+      if (@is_asleep) 
         @is_asleep = false
         puts "#{@name} woke up!"
       end
       puts "#{@name} was super hangry! They ATE YOU! >:("
-      exit
+    end
+
+    if (@quenched_level > 0)
+      @quenched_level -= 1
+    else
+      if (@is_thirsty) 
+        @is_thirsty= false
+        puts "#{@name} has begun to cry!"
+      end
+      puts "#{@name} was so sad that they drowned in their own tears :(."
+      exit 
     end
   end
 
@@ -53,14 +76,16 @@ end
 
 puff = BabyDragon.new("Puff The Magic Dragon")
 
-puff.play
-puff.takes_a_nap
+
+puff.drink
 puff.eat
 puff.play
 puff.takes_a_nap
 puff.eat
 
-until (puff.fullness_level == 0)
-  puff.play
+
+until (puff.quenched_level == 0 && puff.fullness_level == 0)
+  puff.eat
   puff.takes_a_nap
+  puff.drink
 end
