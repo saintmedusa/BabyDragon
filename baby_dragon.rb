@@ -2,7 +2,12 @@ class BabyDragon
 
   attr_reader :fullness_level, :quenched_level
 
-  def initialize(name)
+  # color can be red, yellow or green
+  # red exhales fire
+  # yellow throws up
+  # green dances
+
+  def initialize(name, color)
     @name = name
     @is_asleep = false
     # The dragon is not hungry when @fullness_level is 10
@@ -19,6 +24,22 @@ class BabyDragon
     @quenched_level = 10
 
     passage_of_time
+    @color = color
+    case @color
+      when "red"
+        @special_power = "#{@name} exhales fire."
+      when "yellow"
+        @special_power = "#{@name} throws up."
+      when "green"
+        @special_power = "#{@name} dances."
+      else
+        @special_power = "#{@name} wiggles its tail."
+    end
+
+  end
+
+  def special_power
+    puts @special_power
   end
 
   def eat
@@ -74,7 +95,7 @@ class BabyDragon
 
 end
 
-puff = BabyDragon.new("Puff The Magic Dragon")
+puff = BabyDragon.new("Puff The Magic Dragon", "red")
 
 
 puff.drink
@@ -86,6 +107,11 @@ puff.eat
 
 until (puff.quenched_level == 0 && puff.fullness_level == 0)
   puff.eat
+puff.special_power
+
+until (puff.fullness_level == 0)
+  puff.play
   puff.takes_a_nap
   puff.drink
 end
+
