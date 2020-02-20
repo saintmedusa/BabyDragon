@@ -13,17 +13,7 @@ class BabyDragon
     # The dragon is not hungry when @fullness_level is 10
     # The dragon is very hungry when @fullness_level is 0
     @fullness_level = 10
-
-    @is_thirsty = false 
     @quenched_level = 10
-  end
-
-  def drink 
-    puts "#{@name} laps water from a stone fountain." 
-
-    @quenched_level = 10
-
-    passage_of_time
     @color = color
     case @color
       when "red"
@@ -35,11 +25,19 @@ class BabyDragon
       else
         @special_power = "#{@name} wiggles its tail."
     end
+  end
 
+  def drink 
+    puts "#{@name} laps water from a stone fountain." 
+
+    @quenched_level = 10
+
+    passage_of_time
   end
 
   def special_power
     puts @special_power
+    passage_of_time
   end
 
   def eat
@@ -60,14 +58,13 @@ class BabyDragon
     puts "#{@name} curls up and dozes off..."
     
     @is_asleep = true
-    @is_thirsty = true
 
-    3.times do
+    3.times do # both makes the dragon hungry and thirsty
       passage_of_time
     end
 
     @is_asleep = false
-    @is_thirsty = false
+
   end
 
   def passage_of_time
@@ -83,11 +80,12 @@ class BabyDragon
 
     if (@quenched_level > 0)
       @quenched_level -= 1
-    else
-      if (@is_thirsty) 
-        @is_thirsty= false
-        puts "#{@name} has begun to cry!"
+    else 
+      if (@is_asleep)
+        @is_asleep = false
+        puts "#{@name} woke up!"
       end
+      puts "#{@name} has begun to cry!"
       puts "#{@name} was so sad that they drowned in their own tears :(."
       exit 
     end
@@ -97,17 +95,16 @@ end
 
 puff = BabyDragon.new("Puff The Magic Dragon", "red")
 
-
 puff.drink
 puff.eat
 puff.play
 puff.takes_a_nap
 puff.eat
 
-
 until (puff.quenched_level == 0 && puff.fullness_level == 0)
   puff.eat
-puff.special_power
+  puff.special_power
+end
 
 until (puff.fullness_level == 0)
   puff.play
