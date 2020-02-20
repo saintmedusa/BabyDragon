@@ -28,43 +28,35 @@ class BabyDragon
   end
 
   def drink 
-    puts "#{@name} laps water from a stone fountain." 
-
-    @quenched_level = 10
-
     passage_of_time
+    puts "#{@name} laps water from a stone fountain." 
+    @quenched_level = 10
   end
 
   def special_power
-    puts @special_power
     passage_of_time
+    return @special_power
   end
 
   def eat
-    puts "#{@name} eats popcorn, cheez-its, seaweed, cheetos, burritos"
-
-    @fullness_level = 10
-
     passage_of_time
+    @fullness_level = 10
+    return "#{@name} eats popcorn, cheez-its, seaweed, cheetos, burritos"
   end
 
   def play
-    puts "#{@name} chills out next to the fireplace and eats a lot of salty snacks"
-
     passage_of_time
+    return "#{@name} chills out next to the fireplace and eats a lot of salty snacks" 
   end
 
   def takes_a_nap
-    puts "#{@name} curls up and dozes off..."
-    
     @is_asleep = true
 
     3.times do # both makes the dragon hungry and thirsty
       passage_of_time
     end
-
     @is_asleep = false
-
+    return "#{@name} curls up and dozes off..."
   end
 
   def passage_of_time
@@ -93,22 +85,14 @@ class BabyDragon
 
 end
 
-puff = BabyDragon.new("Puff The Magic Dragon", "red")
+puff = BabyDragon.new("Puff The Magic Dragon", "yellow")
+puts puff.special_power
 
-puff.drink
-puff.eat
-puff.play
-puff.takes_a_nap
-puff.eat
+smaug = BabyDragon.new("Smaug", "red")
+puts smaug.special_power
 
-until (puff.quenched_level == 0 && puff.fullness_level == 0)
-  puff.eat
-  puff.special_power
-end
+shenron = BabyDragon.new("Shenron", "green")
+puts shenron.special_power
 
-until (puff.fullness_level == 0)
-  puff.play
-  puff.takes_a_nap
-  puff.drink
-end
+
 
